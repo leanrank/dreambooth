@@ -196,6 +196,10 @@ class Predictor(BasePredictor):
             default=None,
             description="SD model revision",
         ),
+        out_filename: str = Input(
+            defult=None,
+            description="checkpoint_filename",
+        )
         # save_interval: int = Input(
         #     default=10000,
         #     description="Save weights every N steps.",
@@ -285,6 +289,7 @@ class Predictor(BasePredictor):
             "logging_dir": "logs",
             "log_interval": 10,
             "hflip": False,
+            "out_filename": out_filename,
         }
 
         args = Namespace(**args)

@@ -34,6 +34,8 @@ from torchvision import transforms
 from tqdm.auto import tqdm
 from transformers import CLIPTextModel, CLIPTokenizer
 
+from model_util import save_stable_diffusion_checkpoint
+
 
 # def run_cmd(command):
 #     try:
@@ -894,8 +896,22 @@ def main(args):
                 local_files_only=True,
             )
             # save_dir = os.path.join(args.output_dir, f"{step}")
-            save_dir = args.output_dir
-            pipeline.save_pretrained(save_dir)
+            save_dir = os.path.join(args.output_dir, f"{args.out_filename}.safetensors")
+            # pipeline.save_pretrained(save_dir)
+            # save as safetensors instead save as diffusers
+            save_stable_diffusion_checkpoint(
+                v2=False,
+                output_file=save_dir,
+                text_encoder=pipeline.text_encoder,
+                unet=pipeline.unet,
+                ckpt_path=None,
+                epochs=args.num_train_epochs,
+                steps=step,
+                metadata=None,
+                save_dtype=args.mixed_precision,
+                vae=pipeline.vae,
+            )
+
             with open(os.path.join(save_dir, "args.json"), "w") as f:
                 json.dump(args.__dict__, f, indent=2)
 
