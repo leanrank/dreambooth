@@ -300,7 +300,7 @@ class Predictor(BasePredictor):
         torch.cuda.empty_cache()
         call("nvidia-smi")
 
-        out_path = "output.zip"
+        out_path = f"{out_filename}.zip"
 
         directory = Path(cog_output_dir)
         with ZipFile(out_path, "w") as zip:
