@@ -197,7 +197,7 @@ class Predictor(BasePredictor):
             description="SD model revision",
         ),
         out_filename: str = Input(
-            defult=None,
+            default=None,
             description="checkpoint_filename",
         )
         # save_interval: int = Input(
