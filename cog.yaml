@@ -11,5 +11,6 @@ build:
     - "transformers==4.27.1"
     - "accelerate==0.14.0"
     - "bitsandbytes==0.35.4"
+    - "einops==0.6.1"
 
 predict: "predictor.py:Predictor"
