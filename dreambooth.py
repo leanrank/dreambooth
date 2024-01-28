@@ -899,6 +899,13 @@ def main(args):
             save_dir = os.path.join(args.output_dir, f"{args.out_filename}.safetensors")
             # pipeline.save_pretrained(save_dir)
             # save as safetensors instead save as diffusers
+            save_dtype = None
+            if args.mixed_precision == "fp16":
+                save_dtype = torch.float16
+            elif args.mixed_precision == "bf16":
+                save_dtype = torch.bfloat16
+            elif args.mixed_precision == "float":
+                save_dtype = torch.float
             save_stable_diffusion_checkpoint(
                 v2=False,
                 output_file=save_dir,
@@ -908,7 +915,7 @@ def main(args):
                 epochs=args.num_train_epochs,
                 steps=step,
                 metadata=None,
-                save_dtype=args.mixed_precision,
+                save_dtype=save_dtype,
                 vae=pipeline.vae,
             )
 
