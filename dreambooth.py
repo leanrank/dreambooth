@@ -906,6 +906,7 @@ def main(args):
                 save_dtype = torch.bfloat16
             elif args.mixed_precision == "float":
                 save_dtype = torch.float
+
             save_stable_diffusion_checkpoint(
                 v2=False,
                 output_file=save_dir,
@@ -919,8 +920,8 @@ def main(args):
                 vae=pipeline.vae,
             )
 
-            with open(os.path.join(save_dir, "args.json"), "w") as f:
-                json.dump(args.__dict__, f, indent=2)
+            # with open(os.path.join(save_dir, "args.json"), "w") as f:
+            #     json.dump(args.__dict__, f, indent=2)
 
             if args.save_sample_prompt is not None:
                 pipeline = pipeline.to(accelerator.device)
